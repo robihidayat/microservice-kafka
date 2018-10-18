@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
+import javax.mail.MessagingException;
 
 @Component
 public class EmailKafkaListener {
@@ -18,9 +19,11 @@ public class EmailKafkaListener {
     EmailServices emailServices;
 
     @KafkaListener(topics = "order")
-    public void order(Invoice invoice, Acknowledgment acknowledgment) {
+    public void order(Invoice invoice, Acknowledgment acknowledgment) throws MessagingException {
         log.info("Revceived Email " + invoice.getId());
-        emailServices.sendSimpleMessage(invoice.getCustomer().getEmail(), "Test Email", invoice.getInvoiceLine().toString());
+        emailServices.sendEmail(invoice.getCustomer().getEmail(), "robismandax3@gmail.com", "<Order Notification>");
         acknowledgment.acknowledge();
     }
 }
+
+

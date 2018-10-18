@@ -1,12 +1,17 @@
 package com.robihidayat.microservice.email;
 
+import org.apache.commons.codec.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.context.Context;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 @Service
 public class EmailServices {
 
@@ -15,13 +20,20 @@ public class EmailServices {
     @Autowired
     public JavaMailSender emailSender;
 
-    public void sendSimpleMessage(String to, String subject, String text) {
-        log.info("Sending Email to : " + to);
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        emailSender.send(message);
+    @Autowired
+    private SpringTemplateEngine templateEngine;
+
+    public void sendEmail(String to, String from, String subject) throws MessagingException {
+        Context context = new Context();
+        String content = templateEngine.process("orderEmail", context);
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, CharEncoding.UTF_8);
+        helper.setTo(to);
+        helper.setFrom(from);
+        helper.setText(content, true);
+        helper.setSubject(subject);
+        log.debug("Send email to: {}", to);
+        emailSender.send(mimeMessage);
     }
 
 }
