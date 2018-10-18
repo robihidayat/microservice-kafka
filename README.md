@@ -2,6 +2,7 @@ Microservice Kafka Sample
 ==================
 
 [Deutsche Anleitung zum Starten des Beispiels](WIE-LAUFEN.md)
+[Penjelasan dengan Bahasa](README-ID.md)
 
 This is a sample to show how Kafka can be used for the communication
 between microservices.
@@ -47,6 +48,7 @@ The microservices are:
 - [microservice-kafka-order](microservice-kafka/microservice-kafka-order) to create the orders
 - [microserivce-kafka-shipping](microservice-kafka/microservice-kafka-shipping) for the shipping
 - [microservice-kafka-invoicing](microservice-kafka/microservice-kafka-invoicing) for the invoices
+- [microservice-kafka-email](microservice-kafka/microservice-kafka-email) for the email
 
 The data of an order is copied - including the data of the customer
 and the items. So if a customer or item changes in the order system
