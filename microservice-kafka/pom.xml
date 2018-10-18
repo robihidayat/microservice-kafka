@@ -18,6 +18,8 @@
 		<module>microservice-kafka-order</module>
 		<module>microservice-kafka-shipping</module>
 		<module>microservice-kafka-invoicing</module>
+		<module>microservice-kafka-email</module>
+		<module>microservice-kafka-email</module>
 	</modules>
 
 	<properties>

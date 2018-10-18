@@ -53,7 +53,7 @@ public class Order {
 
 	public Order() {
 		super();
-		orderLine = new ArrayList<OrderLine>();
+		orderLine = new ArrayList<>();
 		updated();
 	}
 
